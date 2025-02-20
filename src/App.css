@@ -1,0 +1,21 @@
+/* Import Tajawal Font */
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700&display=swap");
+
+* {
+  font-family: "Tajawal", sans-serif; /* Set Tajawal as the default font */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Tajawal", sans-serif; /* Apply Tajawal font to the body */
+}
+
+.montserrat-font {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Apply background color to the whole page */
+
+/* Ensure that the root div takes full height */

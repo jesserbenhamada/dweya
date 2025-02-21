@@ -296,7 +296,7 @@ const ImageUploadCard = () => {
                     />
                   </ActionIcon></Center>
                   <Text ta="center" mt="sm" size="1.5rem" c="white" lh="2rem">
-                    ادفع من تلفونك عن طريق SMS
+                  SMS ادفع من تلفونك عن طريق 
                   </Text>
                
             </Card>

@@ -26,7 +26,7 @@ import { myColors } from "../../constants/Colors";
 import bankPayImage from "../../assets/paymentheader.jpg"; // Import the image
 
 const ImageUploadCard = () => {
-  const [active, setActive] = useState(1);
+  const [active, setActive] = useState(0);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -296,7 +296,7 @@ const ImageUploadCard = () => {
                     />
                   </ActionIcon></Center>
                   <Text ta="center" mt="sm" size="1.5rem" c="white" lh="2rem">
-                    او أدفع عن طريق SMS ادفع من تلفونك
+                    ادفع من تلفونك عن طريق SMS
                   </Text>
                
             </Card>

@@ -1,5 +1,5 @@
 
-import { Burger, Button, Container, Group, Text } from '@mantine/core';
+import { Burger, Button, Center, Container, Group, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './css/HeaderSimple.module.css';
 import { myColors } from '../constants/Colors';
@@ -13,17 +13,17 @@ export function HeaderSimple() {
   return (
     <header className={classes.header}>
       <Container size="md" className={classes.inner}>
-      
+      <Center>
       <Text
-
+ta={'center'}
       size="2.3rem"
       fw={1000}
       variant="gradient"
       gradient={{  from: myColors.primary, to: myColors.secondary, deg: 90 }}
     >
      دوايا
-    </Text>
-      <Group justify='right'>
+    </Text></Center>
+      {/* <Group justify='right'>
       <Button
   variant="white"
   c={myColors.dark}
@@ -41,8 +41,8 @@ export function HeaderSimple() {
   }}>
       تسجيل
     </Button>
-    </Group>
-        <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
+    </Group> */}
+     
       </Container>
     </header>
   );

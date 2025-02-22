@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Group,
   Card,
@@ -14,6 +14,7 @@ import {
   SimpleGrid,
   PasswordInput,
   Stack,
+  Alert,
 } from "@mantine/core";
 import {
   IconTransitionBottomFilled,
@@ -24,6 +25,7 @@ import {
 } from "@tabler/icons-react"; // Import icons
 import { myColors } from "../../constants/Colors";
 import bankPayImage from "../../assets/paymentheader.jpg"; // Import the image
+import Webcam from "react-webcam";
 
 const ImageUploadCard = () => {
   const [active, setActive] = useState(0);
@@ -42,11 +44,32 @@ const ImageUploadCard = () => {
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
   const firstStep = () => setActive(0); // Function to go to the first step
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [image, setImage] = useState<string | null>(null); // State to store captured image
 
+  const webcamRef = useRef<Webcam>(null);
+
+  // Capture photo handler
+  const handleCapture = () => {
+    if (webcamRef.current) {
+      const capturedImage = webcamRef.current.getScreenshot();
+      if (capturedImage) {
+        setImage(capturedImage); // Set the captured image to the state
+      } else {
+        console.error("Error capturing image");
+      }
+    } else {
+      console.error("Webcam reference is null");
+    }
+  };
   return (
     <>
-      <Stepper color="cyan" active={active} onStepClick={setActive}>
-        <Stepper.Step label="الخطوة الاولى" description="صورة مطلب">
+ <Stepper
+      color="cyan"
+      active={active}
+      onStepClick={setActive}
+  
+    >        <Stepper.Step label="الخطوة الاولى" description="صورة مطلب">
           <Group justify="center" mt={"xl"}>
             {!selectedImage ? (
               <>
@@ -103,46 +126,100 @@ const ImageUploadCard = () => {
                   أو
                 </Text>
 
-                {/* Second Card */}
-                <Card
-                  shadow="sm"
-                  padding="lg"
-                  radius="xl"
-                  style={{
-                    width: 350,
-                    height: 300,
-                    background: myColors.lighter,
-                    border: `3px solid ${myColors.primary}`,
-                  }}
-                >
-                  <Center>
-                    <ActionIcon
-                      variant="white"
-                      aria-label="Take Picture"
-                      radius="50%"
-                      style={{
-                        width: 160,
-                        height: 160,
-                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-                      }}
-                    >
-                      <IconCameraFilled
-                        color={myColors.primary}
-                        style={{ width: "70%", height: "70%" }}
-                        stroke={1.5}
-                      />
-                    </ActionIcon>
-                  </Center>
-                  <Text
-                    ta={"center"}
-                    mt={"xl"}
-                    size="2rem"
-                    fw={1000}
-                    c={myColors.primary}
-                  >
+      {/* Display camera preview or icon based on the camera state */}
+      {!isCameraOpen ? (
+        
+        <Card
+        shadow="sm"
+        padding="lg"
+        radius="xl"
+        style={{
+          width: 350,
+          height: 300,
+          background: myColors.lighter,
+          border: `3px solid ${myColors.primary}`,
+        }}
+        onClick={() => setIsCameraOpen(true)} // Open camera when clicked
+      >
+        <Center>
+          <ActionIcon
+            variant="white"
+            aria-label="Take Picture"
+            radius="50%"
+            style={{
+              width: 160,
+              height: 160,
+              boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+            }}
+          >
+            <IconCameraFilled
+              color={myColors.primary}
+              style={{ width: "70%", height: "70%" }}
+              stroke={1.5}
+            />
+          </ActionIcon>
+        </Center>
+         <Text ta={"center"} mt={"xl"} size="2rem" fw={1000} c={myColors.primary}>
+         اضغط هنا لاخذ صورة مطلبك
+       </Text>
+    
+   </Card>
+      ) : (
+        <Webcam
+          audio={false}
+          screenshotFormat="image/jpeg"
+          width="100%"
+          height="100%"
+          videoConstraints={{
+            facingMode: "user",
+          }}
+          ref={webcamRef} // Set the webcamRef to the Webcam component
+          onUserMediaError={() => console.log("Camera error")}
+        />
+      )}
+
+      {/* Capture button to take a photo */}
+      {isCameraOpen && (
+        <Center>
+          <button
+            onClick={handleCapture} // Capture photo when button is clicked
+            style={{
+              marginTop: "20px",
+              padding: "10px 20px",
+              backgroundColor: myColors.primary,
+              color: "white",
+              borderRadius: "5px",
+            }}
+          >
                     اضغط هنا لاخذ صورة مطلبك
-                  </Text>
-                </Card>
+
+          </button>
+        </Center>
+      )}
+
+      {/* Display captured image if it exists */}
+      {image && (<>
+        <Center>
+          <img
+            src={image} // Display the captured image
+            alt="Captured"
+            style={{
+              marginTop: "20px",
+              width: "80%",
+              borderRadius: "10px",
+              border: `3px solid ${myColors.primary}`,
+            }}
+          />
+        </Center>
+        <Group justify="center" mt="xl">
+  
+        <Button onClick={nextStep}>الخطوة التالية</Button>
+      </Group></>
+      )}
+
+      {/* Display text when camera is not open */}
+
+       
               </>
             ) : (
               <div style={{ marginTop: "10px", textAlign: "center" }}>
@@ -298,7 +375,7 @@ const ImageUploadCard = () => {
                   <Text ta="center" mt="sm" size="1.5rem" c="white" lh="2rem">
                   SMS ادفع من تلفونك عن طريق 
                   </Text>
-               
+                
             </Card>
 
             {/* Bank Payment Card */}
@@ -355,7 +432,7 @@ const ImageUploadCard = () => {
                     cursor: "pointer",
                   }}
                   onClick={() => setSelectedPayment("sms")} // Set selection when clicked
-                >
+                >  
                   <Group justify="center">
                     <TextInput
                       rightSection={<IconPhone size={20} color="grey" />}

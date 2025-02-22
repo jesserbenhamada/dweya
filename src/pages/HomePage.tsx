@@ -28,6 +28,7 @@ import ImageUploadCard from "../components/imageUploadCard/ImageUploadCard";
 import { useMediaQuery } from "@mantine/hooks";
 
 const HomePage = () => {
+  
   const isMobile = useMediaQuery("(max-width: 768px)"); // Detect mobile screen
 
   return (
@@ -61,7 +62,7 @@ const HomePage = () => {
               >
                 موقعنا يسهل عليك الحصول على دوائك. منغير ما تضيع وقتك ماعليك كان
                 تبعثلنا تصويرة مطلبك و احنا نرتحوك من الانتظار و نعلموك بتوفر
-                دواك و رقم الانتظار
+                دواك و رقم الانتظارك
               </Text>
             </Container>
           </Group>
@@ -111,31 +112,7 @@ const HomePage = () => {
       </SimpleGrid>
 
       <VideoPlayer />
-
-      <Container size={"md"}>
-        <Group my={"70px"} justify="center">
-          <Text ta={"center"} size="4rem" fw={1000} c={myColors.dark}>
-            من هنا
-          </Text>
-          <Text
-            ta={"center"}
-            size="4rem"
-            fw={1000}
-            variant="gradient"
-            gradient={{
-              from: myColors.primary,
-              to: myColors.secondary,
-              deg: 90,
-            }}
-          >
-            ابدا سجل
-          </Text>
-        </Group>
-        <ImageUploadCard />
-
-        <Divider size="md" my={"70px"} color={"gray"} />
-
-        <Group justify="center">
+      <Group mt={"xl"} justify="center">
           <Text
             ta={"center"}
             size="6rem"
@@ -149,12 +126,8 @@ const HomePage = () => {
           >
             الخطوات
           </Text>
-          <Text ta={"center"} size="6rem" fw={1000} c={myColors.dark}>
-            تفسير
-          </Text>
-        </Group>
-      </Container>
-      <Container size={"xl"}>
+         
+        </Group> <Container size={"xl"}>
       {[
         {
           title: "الخطوة الاولى",
@@ -164,7 +137,7 @@ const HomePage = () => {
         {
           title: "الخطوة الثانية",
           description:
-            "اكتب نومرو تلفونك [ باش نعلموك بتوفر دواك مع رقم الانتظار و التوقيت المناسب لاستلام دواك ]",
+            "اكتب نومرو تلفونك [ باش نعلموك بتوفر دواك مع رقم الانتظار و التوقيت المناسب لاستلام دوائك ]",
           icon: <IconPhoneFilled color="white" style={{ width: "70%", height: "70%" }} stroke={1.5} />,
         },
         {
@@ -243,6 +216,79 @@ const HomePage = () => {
           />
         </Container>
       </Container>
+      <Container size={"md"}>
+      <Card
+                shadow="sm"
+                padding="lg"
+                radius="xl"
+                style={{
+               
+                 background: `rgba(0, 114, 153, 0.3)`,
+
+                  border: `3px solid ${myColors.primary}`,
+                }}
+              >
+                <Group align="center" justify="center">
+             
+                <Text
+              ta={"center"}
+             
+              size="2.5rem"
+              fw={1000}
+              c={myColors.light}
+            >
+              معلوم الخدمات 5 دينار
+            </Text> <IconCoinFilled color={myColors.primary}    size={80}stroke={1.5} /></Group></Card>
+        <Group my={"70px"} justify="center">
+        {isMobile ? (
+        <>
+        
+        
+          <Text
+            ta="center"
+            size="4rem"
+            fw={1000}
+            variant="gradient"
+            gradient={{
+              from: myColors.primary,
+              to: myColors.secondary,
+              deg: 90,
+            }}
+          >
+            ابدا سجل
+          </Text>  <Text ta="center" size="4rem" fw={1000} c={myColors.dark}>
+            من هنا
+          </Text>
+        </>
+      ) : (
+        <>
+          <Text ta="center" size="4rem" fw={1000} c={myColors.dark}>
+            من هنا
+          </Text>
+          <Text
+            ta="center"
+            size="4rem"
+            fw={1000}
+            variant="gradient"
+            gradient={{
+              from: myColors.primary,
+              to: myColors.secondary,
+              deg: 90,
+            }}
+          >
+            ابدا سجل
+          </Text>
+        </>
+      )}
+        </Group>
+       
+        <ImageUploadCard />
+
+        <Divider size="md" my={"70px"} color={"gray"} />
+
+      
+      </Container>
+     
     </>
   );
 };

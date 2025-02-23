@@ -70,7 +70,7 @@ const ImageUploadCard = () => {
       allowNextStepsSelect={false}
       onStepClick={setActive}
       styles={{
-        steps: { display: "none" }, // Hides the stepper navigation
+        // steps: { display: "none" }, // Hides the stepper navigation
       }}
     >        <Stepper.Step label="الخطوة الاولى" description="صورة مطلب">
           <Group justify="center" mt={"xl"}>

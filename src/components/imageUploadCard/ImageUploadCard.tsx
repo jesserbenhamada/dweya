@@ -76,7 +76,6 @@ const ImageUploadCard = () => {
           <Group justify="center" mt={"xl"}>
             {!selectedImage ? (
               <>
-                {/* First Card */}
                 <Card
                   shadow="sm"
                   padding="lg"
@@ -124,13 +123,11 @@ const ImageUploadCard = () => {
                   </Text>
                 </Card>
 
-                {/* Separator Text */}
                 <Text ta={"center"} size="4rem" fw={1000} c={myColors.dark}>
                   أو
                 </Text>
 
-      {/* Display camera preview or icon based on the camera state */}
-      {!isCameraOpen ? (
+      {/* {!isCameraOpen ? (
         
         <Card
         shadow="sm"
@@ -181,7 +178,6 @@ const ImageUploadCard = () => {
         />
       )}
 
-      {/* Capture button to take a photo */}
       {isCameraOpen && (
         <Center>
           <button
@@ -200,7 +196,6 @@ const ImageUploadCard = () => {
         </Center>
       )}
 
-      {/* Display captured image if it exists */}
       {image && (<>
         <Center>
           <img
@@ -218,7 +213,7 @@ const ImageUploadCard = () => {
   
         <Button onClick={nextStep}>الخطوة التالية</Button>
       </Group></>
-      )}
+      )} */}
 
       {/* Display text when camera is not open */}
 

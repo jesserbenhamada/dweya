@@ -86,22 +86,25 @@ const ImageUploadCard = () => {
                     onChange={handleImageChange}
                   />
                   <Center>
-                    <ActionIcon
-                      variant="white"
-                      aria-label="Upload"
-                      radius="50%"
-                      style={{
-                        width: 160,
-                        height: 160,
-                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-                      }}
-                    >
-                      <IconTransitionBottomFilled
-                        color={myColors.primary}
-                        style={{ width: "70%", height: "70%" }}
-                        stroke={1.5}
-                      />
-                    </ActionIcon>
+                  <Card
+                                      onChange={handleImageChange}
+
+  radius="50%"
+  style={{
+    width: 160,
+    height: 160,
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+    display: "flex",       // Enables flexbox
+    justifyContent: "center",  // Centers horizontally
+    alignItems: "center",      // Centers vertically
+  }}
+>
+  <IconTransitionBottomFilled
+    color={myColors.primary}
+    style={{ width: "70%", height: "70%" }}
+    stroke={1.5}
+  />
+</Card>
                   </Center>
                   <Text
                     ta={"center"}
@@ -131,22 +134,25 @@ const ImageUploadCard = () => {
                    onClick={() => setIsCameraOpen(true)} // Open camera when clicked
                  >
                    <Center>
-                     <ActionIcon
-                       variant="white"
-                       aria-label="Take Picture"
-                       radius="50%"
-                       style={{
-                         width: 160,
-                         height: 160,
-                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-                       }}
-                     >
+                   <Card
+                   onClick={() => setIsCameraOpen(true)} // Open camera when clicked
+
+  radius="50%"
+  style={{
+    width: 160,
+    height: 160,
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+    display: "flex",       // Enables flexbox
+    justifyContent: "center",  // Centers horizontally
+    alignItems: "center",      // Centers vertically
+  }}
+>
                        <IconCameraFilled
                          color={myColors.primary}
                          style={{ width: "70%", height: "70%" }}
                          stroke={1.5}
                        />
-                     </ActionIcon>
+                     </Card>
                    </Center>
                    <Text
                      ta={"center"}
@@ -159,13 +165,27 @@ const ImageUploadCard = () => {
                    </Text>
                  </Card>
                 ) : (
-                  <Webcam ref={webcamRef} screenshotFormat="image/jpeg" width="100%" height="100%" videoConstraints={{ facingMode: "user" }} />
-                )}
+<Webcam
+  ref={webcamRef}
+  screenshotFormat="image/jpeg"
+  width="100%"
+  height="100%"
+  videoConstraints={{
+    facingMode: { ideal: "environment" }, // Tries to use the rear camera
+  }}
+/>                )}
 
-                {isCameraOpen && (
+                {isCameraOpen && (<>
                   <Center>
-                    <Button onClick={handleCapture} mt="md" color="cyan">اضغط هنا لاخذ صورة مطلبك</Button>
-                  </Center>
+                  <Button onClick={handleCapture} mt="md" color="cyan">
+                    اضغط هنا لاخذ صورة مطلبك
+                  </Button>
+                </Center>
+                <Center>
+                  <Button onClick={() => setIsCameraOpen(false)} mt="md" color="red">
+                    اغلاق الكاميرا
+                  </Button>
+                </Center></>
                 )}
 
                 {image && (

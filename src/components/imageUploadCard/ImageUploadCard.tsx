@@ -68,7 +68,9 @@ const ImageUploadCard = () => {
       color="cyan"
       active={active}
       onStepClick={setActive}
-  
+      styles={{
+        steps: { display: "none" }, // Hides the stepper navigation
+      }}
     >        <Stepper.Step label="الخطوة الاولى" description="صورة مطلب">
           <Group justify="center" mt={"xl"}>
             {!selectedImage ? (
@@ -117,7 +119,7 @@ const ImageUploadCard = () => {
                     fw={1000}
                     c={"white"}
                   >
-                    تنزيل صورة مطلبك من جهازك
+                    تنزيل صورة مطلبك من تلفونك
                   </Text>
                 </Card>
 
@@ -235,12 +237,29 @@ const ImageUploadCard = () => {
                 />
                 <Group justify="center" mt="xl">
                   <Button
-                    color="red"
+                   variant="white"
+                   c={myColors.dark}
+                   radius={"xl"}
+                 
+                   style={{
+                     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                     minWidth: "120px", // Add your desired min-width here
+                   }}
                     onClick={() => setSelectedImage(null)} // Reset image selection
                   >
                     إزالة الصورة
                   </Button>
-                  <Button onClick={nextStep}>الخطوة التالية</Button>
+                  <Button   radius={"xl"}
+              variant="gradient"
+              gradient={{
+                from: myColors.primary,
+                to: myColors.secondary,
+                deg: 90,
+              }}
+              style={{
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                minWidth: "120px", // Add your desired min-width here
+              }} onClick={nextStep}>الخطوة التالية</Button>
                 </Group>
               </div>
             )}
@@ -310,10 +329,11 @@ const ImageUploadCard = () => {
           </Group>
           <Group justify="center" mt="xl">
             <Button
+              onClick={prevStep}
               variant="white"
               c={myColors.dark}
               radius={"xl"}
-              onClick={prevStep}
+            
               style={{
                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
                 minWidth: "120px", // Add your desired min-width here
@@ -411,7 +431,7 @@ const ImageUploadCard = () => {
                     />
                   </ActionIcon></Center>
                   <Text ta="center" mt="sm" size="1.5rem" c="white" lh="2rem">
-                    أدفع عن طريق حاسبك البنكي
+                    أدفع عن طريق حسابك البنكي
                   </Text>
                 
             </Card>

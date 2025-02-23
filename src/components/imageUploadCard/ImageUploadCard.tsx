@@ -283,7 +283,6 @@ const ImageUploadCard = () => {
                   borderRadius: "24px",
                   transition: "border 0.2s ease, box-shadow 0.2s ease",
                   outline: "none",
-                  width: "400px", // Fixed width
                 },
                 input: {
                   color: "grey",

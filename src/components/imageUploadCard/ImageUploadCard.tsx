@@ -67,6 +67,7 @@ const ImageUploadCard = () => {
  <Stepper
       color="cyan"
       active={active}
+      allowNextStepsSelect={false}
       onStepClick={setActive}
       styles={{
         steps: { display: "none" }, // Hides the stepper navigation

@@ -1,19 +1,14 @@
 import {
   ActionIcon,
-  Button,
   Card,
-  Center,
   Container,
   Divider,
   Grid,
   Group,
-  rem,
   SimpleGrid,
   Text,
 } from "@mantine/core";
-import { useState } from "react";
 import { myColors } from "../constants/Colors";
-import classes from "./css/HomePage.module.css";
 import bgImage from "../assets/bg1.png"; // Import the image
 import cardImage from "../assets/img1.jpg"; // Import the image
 import VideoPlayer from "../components/videoplayer/VideoPlayer";
@@ -22,7 +17,6 @@ import {
   IconCircleArrowDown,
   IconCoinFilled,
   IconPhoneFilled,
-  IconTransitionBottomFilled,
 } from "@tabler/icons-react";
 import ImageUploadCard from "../components/imageUploadCard/ImageUploadCard";
 import { useMediaQuery } from "@mantine/hooks";
@@ -277,7 +271,7 @@ const HomePage = () => {
           )}
         </Group>
 
-        {/* <ImageUploadCard /> */}
+        <ImageUploadCard />
 
         <Divider size="md" my={"70px"} color={"gray"} />
         <Card

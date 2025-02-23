@@ -47,7 +47,8 @@ const ImageUploadCard = () => {
   const webcamRef = useRef<Webcam>(null);
   const [image, setImage] = useState<string | null>(null);
   const [phoneNumber, setPhoneNumber] = useState("");
-
+  const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
+  const firstStep = () => setStep(1);
 
   const handleCapture = () => {
     if (webcamRef.current) {
@@ -70,36 +71,93 @@ const ImageUploadCard = () => {
                   shadow="sm"
                   padding="lg"
                   radius="xl"
-                  style={{ width: 350, height: 300, background: "cyan", cursor: "pointer" }}
+                  style={{
+                    width: 350,
+                    height: 300,
+                    background: `linear-gradient(90deg, ${myColors.primary}, ${myColors.secondary})`,
+                    cursor: "pointer",
+                  }}
                   component="label"
                 >
-                  <input type="file" accept="image/*" style={{ display: "none" }} onChange={handleImageChange} />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleImageChange}
+                  />
                   <Center>
-                    <IconTransitionBottomFilled color="white" size={100} />
+                    <ActionIcon
+                      variant="white"
+                      aria-label="Upload"
+                      radius="50%"
+                      style={{
+                        width: 160,
+                        height: 160,
+                        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                      }}
+                    >
+                      <IconTransitionBottomFilled
+                        color={myColors.primary}
+                        style={{ width: "70%", height: "70%" }}
+                        stroke={1.5}
+                      />
+                    </ActionIcon>
                   </Center>
-                  <Text ta="center" mt="xl" size="lg" fw={700} color="white">
+                  <Text
+                    ta={"center"}
+                    mt={"xl"}
+                    size="2rem"
+                    fw={1000}
+                    c={"white"}
+                  >
                     تنزيل صورة مطلبك من تلفونك
                   </Text>
                 </Card>
-
-                <Text ta="center" size="xl" fw={700}>أو</Text>
-
+                <Text ta={"center"} size="4rem" fw={1000} c={myColors.dark}>
+                  أو
+                </Text>
                 {/* Camera Capture Card */}
                 {!isCameraOpen ? (
-                  <Card
-                    shadow="sm"
-                    padding="lg"
-                    radius="xl"
-                    style={{ width: 350, height: 300, background: "lightgray", border: "3px solid cyan", cursor: "pointer" }}
-                    onClick={() => setIsCameraOpen(true)}
-                  >
-                    <Center>
-                      <IconCameraFilled color="cyan" size={100} />
-                    </Center>
-                    <Text ta="center" mt="xl" size="lg" fw={700} color="cyan">
-                      اضغط هنا لاخذ صورة مطلبك
-                    </Text>
-                  </Card>
+                   <Card
+                   shadow="sm"
+                   padding="lg"
+                   radius="xl"
+                   style={{
+                     width: 350,
+                     height: 300,
+                     background: myColors.lighter,
+                     border: '3px solid ${myColors.primary}',
+                   }}
+                   onClick={() => setIsCameraOpen(true)} // Open camera when clicked
+                 >
+                   <Center>
+                     <ActionIcon
+                       variant="white"
+                       aria-label="Take Picture"
+                       radius="50%"
+                       style={{
+                         width: 160,
+                         height: 160,
+                         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                       }}
+                     >
+                       <IconCameraFilled
+                         color={myColors.primary}
+                         style={{ width: "70%", height: "70%" }}
+                         stroke={1.5}
+                       />
+                     </ActionIcon>
+                   </Center>
+                   <Text
+                     ta={"center"}
+                     mt={"xl"}
+                     size="2rem"
+                     fw={1000}
+                     c={myColors.primary}
+                   >
+                     اضغط هنا لاخذ صورة مطلبك
+                   </Text>
+                 </Card>
                 ) : (
                   <Webcam ref={webcamRef} screenshotFormat="image/jpeg" width="100%" height="100%" videoConstraints={{ facingMode: "user" }} />
                 )}
@@ -113,11 +171,28 @@ const ImageUploadCard = () => {
                 {image && (
                   <>
                     <Center>
-                      <img src={image} alt="Captured" style={{ marginTop: "20px", width: "80%", borderRadius: "10px", border: "3px solid cyan" }} />
+                      <img src={image} alt="Captured" style={{ marginTop: "20px", width: "80%", borderRadius: "10px",                     border: '3px solid ${myColors.primary}',
+ }} />
                     </Center>
-                    <Group justify="center" mt="xl">
-                      <Button onClick={handleNext}>الخطوة التالية</Button>
-                    </Group>
+                   <Group justify="center" mt="xl">
+                
+                  <Button
+                    radius={"xl"}
+                    variant="gradient"
+                    gradient={{
+                      from: myColors.primary,
+                      to: myColors.secondary,
+                      deg: 90,
+                    }}
+                    style={{
+                      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                      minWidth: "120px", // Add your desired min-width here
+                    }}
+                    onClick={handleNext}
+                  >
+                    الخطوة التالية
+                  </Button>
+                </Group>
                   </>
                 )}
               </>
@@ -136,60 +211,345 @@ const ImageUploadCard = () => {
 
       {step === 2 && (
         <div>
-          <Text ta="center" size="xl" fw={700}>الخطوة الثانية: إدخال رقم الهاتف</Text>
-          <Group justify="center" mt="xl">
-            <IconPhoneFilled color="cyan" size={100} />
-          </Group>
-          <Container size="xs">
-            <Text ta="center" size="lg" mt="md" fw={600} color="cyan">
-              اكتب نومرو تلفونك [ باش نعلموك بتوفر دواك مع رقم الانتظار و التوقيت المناسب لاستلام دواك ]
+              <Group justify="center">
+            <ActionIcon
+              mt={"xl"}
+              variant="white"
+              aria-label="Upload"
+              radius="50%"
+              style={{
+                width: 160,
+                height: 160,
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                pointerEvents: "none", // Makes the icon unclickable
+              }}
+            >
+              <IconPhoneFilled
+                color={myColors.primary}
+                style={{ width: "70%", height: "70%" }}
+                stroke={1.5}
+              />
+            </ActionIcon>
+          </Group>{" "}
+          <Container size={"xs"}>
+            <Text
+              ta={"center"}
+              size="xl"
+              mt={"md"}
+              fw={600}
+              c={myColors.primary}
+            >
+              اكتب نومرو تلفونك [ باش نعلموك بتوفر دواك مع رقم الانتظار و
+              التوقيت المناسب لاستلام دواك ]
             </Text>
           </Container>
           <Group justify="center">
             <TextInput
               rightSection={<IconPhone size={20} color={"grey"} />}
+              // variant="unstyled"
               size="md"
-              radius="xl"
-              mt="xl"
+              radius={"xl"}
+              mt={"xl"}
               placeholder="أدخل رقمك"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              c={"grey"}
               styles={{
-                input: { paddingLeft: "20px" },
-                wrapper: { border: "1px solid grey", borderRadius: "24px", width: "400px" },
+                label: {
+                  color: "grey",
+                  fontWeight: 800,
+                  marginBottom: "8px",
+                },
+                wrapper: {
+                  border: "1px solid grey",
+                  borderRadius: "24px",
+                  transition: "border 0.2s ease, box-shadow 0.2s ease",
+                  outline: "none",
+                  width: "400px", // Fixed width
+                },
+                input: {
+                  color: "grey",
+                  paddingLeft: "20px",
+                },
               }}
             />
           </Group>
           <Group justify="center" mt="xl">
-            <Button onClick={handlePrev} variant="outline" color="dark">الخطوة السابقة</Button>
-            <Button onClick={handleNext} color="cyan">الخطوة التالية</Button>
+            <Button
+            onClick={handlePrev}
+              variant="white"
+              c={myColors.dark}
+              radius={"xl"}
+              style={{
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                minWidth: "120px", // Add your desired min-width here
+              }}
+            >
+              الخطوة السابقة
+            </Button>
+            <Button
+             onClick={handleNext}
+              radius={"xl"}
+              variant="gradient"
+              gradient={{
+                from: myColors.primary,
+                to: myColors.secondary,
+                deg: 90,
+              }}
+              style={{
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                minWidth: "120px", // Add your desired min-width here
+              }}
+            >
+              الخطوة التالية
+            </Button>
           </Group>
         </div>
       )}
 
       {step === 3 && (
         <div>
-          <Text ta="center" size="xl" fw={700}>الخطوة الثالثة: الدفع</Text>
-          <Group justify="center" mt="xl">
+              <SimpleGrid cols={{ base: 1, sm: 2 }}>
+  <Card
+              shadow="sm"
+              padding="lg"
+              radius="xl"
+              style={{
+                    background: `linear-gradient(90deg, ${myColors.primary}, ${myColors.secondary})`,
+                cursor: "pointer",
+              }}
+              onClick={() => setSelectedPayment("sms")} // Set selection when clicked
+            >
+              <Center>
+                <ActionIcon
+                  variant="white"
+                  aria-label="SMS Payment"
+                  radius="50%"
+                  style={{
+                    width: 80,
+                    height: 80,
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                    pointerEvents: "none", // Makes the icon unclickable
+                  }}
+                >
+                  <IconPhoneFilled
+                    color={myColors.primary}
+                    style={{ width: "70%", height: "70%" }}
+                    stroke={1.5}
+                  />
+                </ActionIcon>
+              </Center>
+              <Text ta="center" mt="sm" size="1.5rem" c="white" lh="2rem">
+                SMS ادفع من تلفونك عن طريق
+              </Text>
+            </Card>
+
+            {/* Bank Payment Card */}
             <Card
               shadow="sm"
               padding="lg"
               radius="xl"
-              style={{ background: "cyan", cursor: "pointer" }}
+              style={{
+                    background: `linear-gradient(90deg, ${myColors.primary}, ${myColors.secondary})`,
+                cursor: "pointer",
+              }}
+              onClick={() => setSelectedPayment("bank")} // Set selection when clicked
             >
               <Center>
-                <Text ta="center" color="white" size="lg" fw={700}>
-                  الدفع عبر SMS
-                </Text>
+                <ActionIcon
+                  variant="white"
+                  aria-label="Bank Payment"
+                  radius="50%"
+                  style={{
+                    width: 80,
+                    height: 80,
+                    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                    pointerEvents: "none", // Makes the icon unclickable
+                  }}
+                >
+                  <IconCoinFilled
+                    color={myColors.primary}
+                    style={{ width: "70%", height: "70%" }}
+                    stroke={1.5}
+                  />
+                </ActionIcon>
               </Center>
-            </Card>
-          </Group>
+              <Text ta="center" mt="sm" size="1.5rem" c="white" lh="2rem">
+                أدفع عن طريق حسابك البنكي
+              </Text>
+            </Card></SimpleGrid>
+            <Container size={"sm"}>
+            {/* Show Input if SMS Payment is Selected */}
+            {selectedPayment === "sms" && (
+              <>
+                {" "}
+                <Card
+                  mt={"xl"}
+                  shadow="sm"
+                  padding="lg"
+                  radius="xl"
+                  style={{
+                    background: myColors.lighter,
+                    border:' 3px solid ${myColors.primary}',
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setSelectedPayment("sms")} // Set selection when clicked
+                >
+                  <Group justify="center">
+                    <TextInput
+                      rightSection={<IconPhone size={20} color="grey" />}
+                      size="md"
+                      radius="xl"
+                      placeholder="أدخل رقمك"
+                      c="grey"
+                      styles={{
+                        label: {
+                          color: "grey",
+                          fontWeight: 800,
+                          marginBottom: "8px",
+                        },
+                        wrapper: {
+                          border: "1px solid grey",
+                          borderRadius: "24px",
+                          transition: "border 0.2s ease, box-shadow 0.2s ease",
+                          outline: "none",
+                          width: "auto",
+                        },
+                        input: {
+                          color: "grey",
+                          paddingLeft: "20px",
+                        },
+                      }}
+                    />
+                  </Group>
+                </Card>
+              </>
+            )}
+            {selectedPayment === "bank" && (
+              <>
+                {" "}
+                <Card
+                  mt={"xl"}
+                  shadow="sm"
+                  padding="lg"
+                  radius="xl"
+                  style={{
+                    background: myColors.lighter,
+                    border: '3px solid ${myColors.primary}',
+                    cursor: "pointer",
+                  }}
+                >
+                  <Image radius="md" src={bankPayImage} alt="Bank Payment" />
+                  <Text
+                    ta="left"
+                    mt="sm"
+                    size="1.2rem"
+                    c={myColors.dark}
+                    lh="2rem"
+                  >
+                    we have sent you a text message with a code to your
+                    registered mobile number ending in +216***9211
+                    <br />
+                    you are paying to DWEYA the amount of 0.500 dt on 11.02.2025
+                    <br />
+                    you have 3 attempts to enter password and 3 to resend{" "}
+                  </Text>
+                  <Stack>
+                    <PasswordInput
+                      size="md"
+                      my={"md"}
+                      radius="xl"
+                      placeholder="your code"
+                      c="grey"
+                      styles={{
+                        label: {
+                          color: "grey",
+                          fontWeight: 800,
+                          marginBottom: "8px",
+                        },
+                        wrapper: {
+                          border: "1px solid grey",
+                          borderRadius: "24px",
+                          transition: "border 0.2s ease, box-shadow 0.2s ease",
+                          outline: "none",
+                        },
+                        input: {
+                          color: "grey",
+                          paddingLeft: "20px",
+                        },
+                      }}
+                    />
+                    <Button fullWidth radius="xl" color={myColors.primary}>
+                      Submit
+                    </Button>
+                    <Button fullWidth radius="xl" color={"grey"}>
+                      Cansel
+                    </Button>
+                  </Stack>
+                </Card>
+              </>
+            )}
+          </Container>
           <Group justify="center" mt="xl">
-            <Button onClick={handlePrev} variant="outline" color="dark">الخطوة السابقة</Button>
-            <Button color="cyan">إتمام العملية</Button>
+            <Button
+              variant="white"
+              c={myColors.dark}
+              radius={"xl"}
+              onClick={handlePrev}
+              style={{
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                minWidth: "120px", // Add your desired min-width here
+              }}
+            >
+              الخطوة السابقة
+            </Button>
+            <Button
+              onClick={handleNext}
+              radius={"xl"}
+              variant="gradient"
+              gradient={{
+                from: myColors.primary,
+                to: myColors.secondary,
+                deg: 90,
+              }}
+              style={{
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                minWidth: "120px", // Add your desired min-width here
+              }}
+            >
+              الخطوة التالية
+            </Button>
           </Group>
         </div>
       )}
+        {step === 4 && (
+        <div>
+              <Text ta="center" mt="sm" size="1.5rem" c={myColors.dark} lh="2rem">
+            لقد انتهينا من العملية، انتظر الإشعار على الهاتف لمعرفة موعد استلام
+            الدواء الخاص بك
+          </Text>
+          <Center>
+            <Button
+              mt={"xl"}
+              c={"white"}
+              radius="xl"
+              onClick={firstStep}
+              variant="gradient"
+              gradient={{
+                from: myColors.primary,
+                to: myColors.secondary,
+                deg: 90,
+              }}
+              style={{
+                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                minWidth: "120px", // Add your desired min-width here
+              }}
+            >
+              الخطوة الأولى
+            </Button>
+          </Center>
+        
+        </div>
+      )}
+
     </div>
     </>
   );

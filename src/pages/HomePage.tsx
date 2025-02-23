@@ -277,7 +277,7 @@ const HomePage = () => {
           )}
         </Group>
 
-        <ImageUploadCard />
+        {/* <ImageUploadCard /> */}
 
         <Divider size="md" my={"70px"} color={"gray"} />
         <Card
